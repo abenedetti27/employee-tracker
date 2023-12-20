@@ -104,4 +104,40 @@ function addDepartment() {
                 startApp();
             });
         });
-}
+    }
+
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'role',
+                message: 'What is the name of the role you would like to add?'
+            }
+        ])
+        .then((answer) => {
+            connection.query('INSERT INTO role SET ?', { name: answer.role }, (err, res) => {
+                if (err) throw err;
+                console.log('Role added!');
+                startApp();
+            });
+        });
+    }
+
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'employee',
+                message: 'What is the name of the employee you would like to add?'
+            }
+        ])
+        .then((answer) => {
+            connection.query('INSERT INTO employee SET ?', { name: answer.employee }, (err, res) => {
+                if (err) throw err;
+                console.log('Employee added!');
+                startApp();
+            });
+        });
+    }
