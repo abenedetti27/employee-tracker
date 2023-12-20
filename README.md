@@ -27,6 +27,75 @@ When the user chooses to add a department, they are prompted to enter the name o
 
 When the user chooses to add an employee, they are prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database. WHen they choose to update an employee role, they are prompted to select an employee to update and their new role and this information is updated in the database.
 
+```
+const inquirer = require('inquirer');
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'Expelliarmus103*',
+    database: 'employee_db'
+});
+
+function startApp() {
+    inquirer
+        .prompt([
+            {
+                type: 'list',
+                name: 'start',
+                message: 'What would you like to do?',
+                choices: [
+                    'Add Department',
+                    'Add Role',
+                    'Add Employee',
+                    'View Departments',
+                    'View Roles',
+                    'View Employees',
+                    'Update Employee Role',
+                    'Exit'
+                ]
+            }
+        ])
+        .then((answer) => {
+            switch (answer.start) {
+                case 'Add Department':
+                    addDepartment();
+                    break;
+
+                case 'Add Role':
+                    addRole();
+                    break;
+
+                case 'Add Employee':
+                    addEmployee();
+                    break;
+
+                case 'View Departments':
+                    viewDepartments();
+                    break;
+
+                case 'View Roles':
+                    viewRoles();
+                    break;
+
+                case 'View Employees':
+                    viewEmployees();
+                    break;
+
+                case 'Update Employee Role':
+                    updateEmployeeRole();
+                    break;
+
+                case 'Exit':
+                    connection.end();
+                    break;
+            }
+        });
+}
+
+```
+
 ## Usage <a name="usage"></a>
 This application is meant to be used to view and manage the departments, roles, and employees in a company to organize and plan business.
 
