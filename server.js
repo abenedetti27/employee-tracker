@@ -141,3 +141,27 @@ function addEmployee() {
             });
         });
     }
+
+    function updateEmployeeRole() {
+        inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    name: 'employee',
+                    message: 'What is the name of the employee you would like to update?'
+                }
+            ])
+            .then((answer) => {
+                connection.query('UPDATE employee SET ?', { name: answer.employee }, (err, res) => {
+                    if (err) throw err;
+                    console.log('Employee updated!');
+                    startApp();
+                });
+            });
+        }
+
+connection.connect((err) => {
+    if (err) throw err;
+    console.log(`connected as id ${connection.threadId}`);
+    startApp();
+}   );
